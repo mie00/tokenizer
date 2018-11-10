@@ -15,11 +15,16 @@ var (
 		tokenizers.Domain{},
 		tokenizers.URL{},
 		tokenizers.Null{},
+		tokenizers.DateTime{},
 		tokenizers.JSONObject{},
 		tokenizers.JSONArray{},
 		tokenizers.Bytes{},
 	}
 )
+
+func TokenizeString(in string) string {
+	return Tokenize([]byte(in)).(tokenizers.Token).String()
+}
 
 func Tokenize(in []byte) interface{} {
 	return tokenize(&tokenizers.UnknownToken{in})
