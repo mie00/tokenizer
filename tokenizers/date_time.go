@@ -1,6 +1,7 @@
 package tokenizers
 
 import (
+	"bytes"
 	"time"
 
 	"github.com/araddon/dateparse"
@@ -28,8 +29,11 @@ func (DateTimeToken) String() string {
 func (DateTime) Matchers() []Matcher {
 	return []Matcher{
 		func(in []byte) bool {
+			if len(bytes.TrimSpace(in)) == 0 {
+				return false
+			}
 			_, err := dateparse.ParseAny(string(in))
-			return err != nil
+			return err == nil
 		},
 	}
 }

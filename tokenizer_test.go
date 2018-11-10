@@ -20,6 +20,13 @@ func intPointer(in int) *int {
 	return &in
 }
 
+// func timeMust(t time.Time, err error) time.Time {
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	return t
+// }
+
 func TestTokenize(t *testing.T) {
 	inouts := []*InOut{
 		&InOut{
@@ -198,6 +205,11 @@ func TestTokenize(t *testing.T) {
 			&tokenizers.NullToken{},
 			"{Null}",
 		},
+		// &InOut{
+		// 	"1-1-2005",
+		// 	&tokenizers.DateTimeToken{Value: timeMust(time.Parse("02-01-2006", "01-01-2005")), Format: []byte("")},
+		// 	"{DateTime}",
+		// },
 	}
 	for _, inout := range inouts {
 		out := Tokenize([]byte(inout.in))
