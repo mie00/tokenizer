@@ -19,7 +19,7 @@ func (e *DomainToken) SetChildren(ts []Token) error {
 }
 
 func (e *DomainToken) String() string {
-	return "{DOMAIN}"
+	return string(e.Domain)
 }
 
 var validDomain = regexp.MustCompile(`^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$`)
