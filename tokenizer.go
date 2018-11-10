@@ -29,6 +29,7 @@ func TokenizeString(in string) string {
 func Tokenize(in []byte) interface{} {
 	return tokenize(&tokenizers.UnknownToken{in})
 }
+
 func tokenize(t tokenizers.Token) tokenizers.Token {
 	unknown, ok := t.(*tokenizers.UnknownToken)
 	if !ok {
