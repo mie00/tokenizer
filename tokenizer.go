@@ -39,16 +39,24 @@ func tokenize(t tokenizers.Token) tokenizers.Token {
 	in := unknown.Bytes
 	for _, t := range ts {
 		matchers := t.Matchers()
+		matched := false
 		for _, m := range matchers {
 			if m(in) {
-				token := t.Token(in)
-				children := token.Children()
-				for i := range children {
-					children[i] = tokenize(children[i])
-				}
-				token.SetChildren(children)
-				return token
+				matched = true
 			}
+			if !m(in) {
+				matched = false
+				break
+			}
+		}
+		if matched {
+			token := t.Token(in)
+			children := token.Children()
+			for i := range children {
+				children[i] = tokenize(children[i])
+			}
+			token.SetChildren(children)
+			return token
 		}
 	}
 	return &tokenizers.BytesToken{in}

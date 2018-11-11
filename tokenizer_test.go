@@ -10,6 +10,11 @@ import (
 	"github.com/mie00/tokenizer/tokenizers"
 )
 
+type InOutMessage struct {
+	InOut   *InOut
+	Message string
+}
+
 type InOut struct {
 	in  string
 	out tokenizers.Token
@@ -26,7 +31,49 @@ func intPointer(in int) *int {
 // 	}
 // 	return t
 // }
-
+func TestMatcher(t *testing.T) {
+	ioms := []*InOutMessage{
+		&InOutMessage{
+			InOut: &InOut{
+				"asdasdsad",
+				nil,
+				"asdasdsad",
+			},
+			Message: "failed on both",
+		},
+		&InOutMessage{
+			InOut: &InOut{
+				"asd.asd.sad",
+				nil,
+				"asd.asd.sad",
+			},
+			Message: "failed second only",
+		},
+		&InOutMessage{
+			InOut: &InOut{
+				"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM.asd",
+				nil,
+				"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM.asd",
+			},
+			Message: "failed on first only",
+		},
+		&InOutMessage{
+			InOut: &InOut{
+				"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM",
+				nil,
+				"{JWT}",
+			},
+			Message: "succeed",
+		},
+	}
+	for _, iom := range ioms {
+		inout := iom.InOut
+		out := Tokenize([]byte(inout.in))
+		if out.(tokenizers.Token).String() != inout.str {
+			t.Errorf("case: %s should have %s, out: %s, was expecting: %s", inout.in, iom.Message, out.(tokenizers.Token).String(), inout.str)
+		}
+	}
+}
 func TestTokenize(t *testing.T) {
 	inouts := []*InOut{
 		&InOut{
