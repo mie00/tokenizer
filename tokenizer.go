@@ -12,6 +12,7 @@ var (
 		tokenizers.HTTPMethod{},
 		tokenizers.QuotedString{},
 		tokenizers.Number{},
+		tokenizers.JWT{},
 		tokenizers.Domain{},
 		tokenizers.URL{},
 		tokenizers.Null{},

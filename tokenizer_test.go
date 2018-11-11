@@ -222,6 +222,11 @@ func TestTokenize(t *testing.T) {
 		// 	&tokenizers.DateTimeToken{Value: timeMust(time.Parse("02-01-2006", "01-01-2005")), Format: []byte("")},
 		// 	"{DateTime}",
 		// },
+		&InOut{
+			"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM",
+			nil,
+			"{JWT}",
+		},
 	}
 	for _, inout := range inouts {
 		out := Tokenize([]byte(inout.in))
