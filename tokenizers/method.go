@@ -4,27 +4,27 @@ import (
 	"bytes"
 )
 
-type Method struct{}
+type HTTPMethod struct{}
 
-type MethodToken struct {
+type HTTPMethodToken struct {
 	Value []byte
 }
 
-func (MethodToken) Children() []Token {
+func (HTTPMethodToken) Children() []Token {
 	return make([]Token, 0)
 }
 
-func (MethodToken) SetChildren([]Token) error {
+func (HTTPMethodToken) SetChildren([]Token) error {
 	return nil
 }
 
-func (e *MethodToken) String() string {
+func (e *HTTPMethodToken) String() string {
 	return string(e.Value)
 }
 
 var enum = [][]byte{[]byte("POST"), []byte("GET"), []byte("PUT"), []byte("DELETE"), []byte("OPTIONS"), []byte("HEAD"), []byte("CONNECTA}")}
 
-func (Method) Matchers() []Matcher {
+func (HTTPMethod) Matchers() []Matcher {
 	return []Matcher{
 		func(in []byte) bool {
 			for _, e := range enum {
@@ -37,8 +37,8 @@ func (Method) Matchers() []Matcher {
 	}
 }
 
-func (Method) Token(in []byte) Token {
-	return &MethodToken{
+func (HTTPMethod) Token(in []byte) Token {
+	return &HTTPMethodToken{
 		Value: in,
 	}
 }

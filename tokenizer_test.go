@@ -158,12 +158,12 @@ func TestTokenize(t *testing.T) {
 		},
 		&InOut{
 			"POST",
-			&tokenizers.MethodToken{[]byte("POST")},
+			&tokenizers.HTTPMethodToken{[]byte("POST")},
 			"POST",
 		},
 		&InOut{
 			"GET",
-			&tokenizers.MethodToken{[]byte("GET")},
+			&tokenizers.HTTPMethodToken{[]byte("GET")},
 			"GET",
 		},
 		&InOut{

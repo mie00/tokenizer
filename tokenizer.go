@@ -9,7 +9,7 @@ var (
 		tokenizers.UUID{},
 		tokenizers.Email{},
 		tokenizers.Boolean{},
-		tokenizers.Method{},
+		tokenizers.HTTPMethod{},
 		tokenizers.QuotedString{},
 		tokenizers.Number{},
 		tokenizers.Domain{},
